@@ -10,15 +10,16 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="h-56 sm:h-36">
+  <div class="bg-slate-100">
+  <div class="h-56 sm:h-36 border border-gray-300">
     <img
       class="h-56 sm:h-36 w-full"
       :src="country.flags.png"
       :alt="country.flags.alt"
     />
   </div>
-  <h4 class="text-xl font-bold text-gray-500">{{ country.name.common }}</h4>
-  <p class="text-sm text-gray-400">
+  <h4 class="text-xl font-bold text-gray-600 pt-1">{{ country.name.common }}</h4>
+  <p class="text-sm text-gray-500">
     Capital:
     <span v-for="capital in country.capital" class="font-bold">{{
       capital
@@ -26,12 +27,13 @@ defineProps<Props>();
     <template> </template>
     </span>
   </p>
-  <p class="text-sm text-gray-400">
+  <p class="text-sm text-gray-500">
     Population:
     <span class="font-bold">{{ country.population?.toLocaleString() }}</span>
   </p>
-  <p class="text-sm text-gray-400">
+  <p class="text-sm text-gray-500">
     Region:
     <span class="font-bold">{{ country.region }}</span>
   </p>
+  </div>
 </template>

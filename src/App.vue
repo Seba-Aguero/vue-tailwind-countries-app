@@ -28,6 +28,8 @@ const filterCountries = () => {
   filteredCountries.value = countries.value.filter((country) =>
     country.name.common.toLowerCase().includes(search.value.toLowerCase())
   );
+  totalItems.value = filteredCountries.value.length;
+  page.value = 1;
 };
 
 const sliceCountries = (currentCountries: Country[]) => {
@@ -45,11 +47,11 @@ onMounted(() => {
 });
 
 watch([countries, page, filteredCountries], () => {
-  sliceCountries(
-    filteredCountries.value.length <= 0 && search.value === ""
-      ? countries.value
-      : filteredCountries.value
-  );
+  const currentCountries = filteredCountries.value.length > 0 || search.value !== ""
+    ? filteredCountries.value
+    : countries.value;
+  totalItems.value = currentCountries.length;
+  sliceCountries(currentCountries);
 });
 </script>
 
@@ -68,17 +70,17 @@ watch([countries, page, filteredCountries], () => {
     <div class="mb-8 flex justify-center space-x-6">
       <button
         :disabled="page <= 1"
-        :class="{ 'opacity-50': page <= 1 }"
+        :class="{ 'opacity-60': page <= 1, 'hover:bg-gray-300': page > 1 }"
         @click="changePage(page - 1)"
-        class="border border-gray-300 rounded px-2 py-0.5 hover:bg-gray-200"
+        class="border border-gray-400 rounded px-2 py-0.5 shadow-sm"
       >
         Previous
       </button>
       <button
         :disabled="page >= totalItems / itemsPerPage"
-        :class="{ 'opacity-50': page >= totalItems / itemsPerPage }"
+        :class="{ 'opacity-50': page >= totalItems / itemsPerPage, 'hover:bg-gray-300': page < totalItems / itemsPerPage }"
         @click="changePage(page + 1)"
-        class="border border-gray-300 rounded px-2 py-0.5 hover:bg-gray-200"
+        class="border border-gray-400 rounded px-2 py-0.5 shadow-sm"
       >
         Next
       </button>

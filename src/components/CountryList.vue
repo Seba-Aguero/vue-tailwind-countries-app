@@ -14,7 +14,7 @@ defineProps<Props>();
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
     <div
       v-for="country in countries"
-      class="border border-gray-300 rounded p-3"
+      class="border border-gray-300 rounded p-4 bg-slate-100 shadow-md"
     >
       <CountryItem :country="country" />
     </div>
